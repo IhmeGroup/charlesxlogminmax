@@ -1,17 +1,18 @@
-import charlesxlogminmax.extract_data as ext_dat
-import charlesxlogminmax.plot_min_max as plt_minmax
+from __future__ import print_function
+from __future__ import division
+from __future__ import absolute_import
+from __future__ import unicode_literals
+
+from charlesxlogminmax.extract_data import extract_log_data
+from charlesxlogminmax.plot_min_max import plot_log_data
 
 if __name__ == "__main__":
     # Test with csv input
-    #log_file = 'data/charlesx_log_test.out'
     log_file = 'data/real_log.out'
     out_file = 'test_extract_out.csv'
 
-    print('extract data')
-    ext_dat.extract_log_data(log_file, out_file)
-    print('plotting')
-    plt_minmax.plot_log_data(out_file)
-    print('plots done')
+    extract_log_data(log_file, out_file)
+    plot_log_data(out_file)
 
     # Test with log input
-    plt_minmax.plot_log_data(log_file, show=True)
+    plot_log_data(log_file, show=False)

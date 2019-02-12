@@ -1,6 +1,11 @@
 """
 This file is made to plot log info from log or csv file
 """
+from __future__ import print_function
+from __future__ import division
+from __future__ import absolute_import
+from __future__ import unicode_literals
+
 import os
 import numpy as np
 import matplotlib.pyplot as plt
@@ -36,7 +41,7 @@ def clean_file_name(file_name):
     return file_name
 
 
-def plot_log_data(input_file, fill=False, ext='pdf', show=False):
+def plot_log_data(input_file, fill=False, ext='png', show=False):
     """
     Plot the lof data either from csv or CharlesX.log
     :param input_file: csv or charles x log file

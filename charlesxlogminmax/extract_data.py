@@ -9,6 +9,11 @@ It reads the log file line by line:
     - match and vector scalar range data
     - match and efficiency data
 """
+from __future__ import print_function
+from __future__ import division
+from __future__ import absolute_import
+from __future__ import unicode_literals
+
 import pandas as pd
 
 from . import regex

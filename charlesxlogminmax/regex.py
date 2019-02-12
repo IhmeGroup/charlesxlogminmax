@@ -3,6 +3,11 @@ This file contains all the functions needed to filter the data.
  - filter_non_data gets rid of non-data-containing lines
  - the get_* functions use regular expressions to extract the data
 """
+from __future__ import print_function
+from __future__ import division
+from __future__ import absolute_import
+from __future__ import unicode_literals
+
 import re
 import numpy as np
 
