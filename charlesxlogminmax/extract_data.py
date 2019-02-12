@@ -1,11 +1,20 @@
-#todo : docstring
-import numpy as np
+"""
+This file contains the main extraction function.
+
+It reads the log file line by line:
+
+    - filter non data containing lines
+    - match and extract temporal data
+    - match and extract scalar range data
+    - match and vector scalar range data
+    - match and efficiency data
+"""
 import pandas as pd
 
 from . import regex
 
 
-def extract_data(input_log, output_csv):
+def extract_log_data(input_log, output_csv):
     """
     Extracts scalar data from charlesx log
     :param input_log:
@@ -71,11 +80,17 @@ def extract_data(input_log, output_csv):
                             temp_data['%s_min' % name].append(data_min)
                             temp_data['%s_max' % name].append(data_max)
 
+    # Get data as pandas data frame
     df = pd.DataFrame.from_dict(temp_data)
-    df.to_csv(output_csv)
+
+    # Output data as csv file
+    if not output_csv.endswith('.csv'):
+        df.to_csv(output_csv + '.csv')
+    else:
+        df.to_csv(output_csv)
 
 
 if __name__ == "__main__":
-    infile = 'data_test/charlesx_log_test.out'
-    outfile = 'test_out.csv'
-    extract_data(infile, outfile)
+    infile = '../test/data/charlesx_log_test.out'
+    outfile = '../test/test_out.csv'
+    extract_log_data(infile, outfile)

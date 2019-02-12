@@ -1,0 +1,55 @@
+#Author: Quentin Douasbin, CTR, Stanford University, California, USA
+figure.figsize: 5, 4
+
+lines.linewidth: 0.5
+
+patch.linewidth: 0.5
+patch.facecolor: blue
+patch.edgecolor: eeeeee
+patch.antialiased: True
+
+#axes.facecolor: 0.98
+axes.grid: True
+axes.prop_cycle: cycler('color', [ '0.00', '348ABD', 'A60628', '0.50', '467821', 'D55E00', 'CC79A7', '56B4E9', '009E73', 'F0E442'])
+
+grid.color: 0.70 # grayscale form 0 to 1 (0 == black, 1 == white)
+grid.linestyle: :
+grid.linewidth: 0.5
+
+legend.fancybox: False
+legend.shadow: False
+legend.edgecolor: black
+legend.borderpad: 0.3
+
+image.cmap: viridis
+
+savefig.dpi: 400
+savefig.format: pdf
+savefig.bbox: tight
+savefig.pad_inches: 0.1
+
+markers.fillstyle: none
+
+xtick.direction: in
+ytick.direction: in
+
+xtick.minor.visible: True
+ytick.minor.visible: True
+
+# Use scientific notation
+  axes.formatter.limits: -0, 0        ## use scientific notation if log10
+#                                     ## of the axis range is smaller than the
+#                                     ## first or larger than the second
+  axes.formatter.use_mathtext: True   ## When True, use mathtext for scientific
+#                                     ## notation.
+  axes.formatter.min_exponent: 0      ## minimum exponent to format in scientific notation
+  axes.formatter.useoffset: True      ## If True, the tick label formatter
+#                                     ## will default to labeling ticks relative
+#                                     ## to an offset when the data range is
+#                                     ## small compared to the minimum absolute
+#                                     ## value of the data.
+  axes.formatter.offset_threshold: 4  ## When useoffset is True, the offset
+#                                     ## will be used when it can remove
+#                                     ## at least this number of significant
+#                                     ## digits from tick labels.
+#                                     #

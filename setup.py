@@ -18,6 +18,6 @@ setup(
     author_email='douasbin@stanford.edu',
     url='https://github.com/?',
     license=license,
-    packages=find_packages(exclude=('tests', 'docs'))
+    packages=find_packages(exclude=('test', 'docs'))
 )
 
