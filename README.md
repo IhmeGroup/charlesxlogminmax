@@ -10,7 +10,13 @@ To install the tool you need to install the python package in your current pytho
 pip install git+https://github.com/qdouasbin/charlesxlogminmax.git
 ```
 
-[Go here to know how to setup an python environment with Anaconda](https://github.com/IhmeGroup/CharlesX/wiki/Installation-Libraries#Using_a_Python_version_controller__Anaconda) or [here](https://docs.anaconda.com/anaconda/install/) if you don't have access to the CharlesX repository yet.
+## Uninstall
+
+To uninstall the tool run the command:
+
+```
+pip uninstall charlesxlogminmax
+```
 
 ## How to use it
 
