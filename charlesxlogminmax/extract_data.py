@@ -99,7 +99,8 @@ def extract_log_data(input_log, output_csv):
         print("\t%s" % name)
 
     print("Statistics:")
-    print(df.describe())
+    for name in df.columns:
+        print("\t" + df[name].describe())
 
 
     # Output data as csv file
