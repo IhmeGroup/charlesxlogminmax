@@ -117,22 +117,27 @@ def plot_log_data(input_file, fill=False, ext='png', show=False, savefig=False):
     for name in df_new.columns:
         if '_min' in name or '_max' in name:
             df_new = df_new.drop(columns=[name])
+        if 'idx' in name:
+            df_new = df_new.drop(columns=[name])
+        if 'Unnamed' in name:
+            df_new = df_new.drop(columns=[name])
 
     # create variable name list
     data_name = df_new.columns
 
     for name in data_name:
-        plt.figure()
+        if not name == 'time':
+            plt.figure()
 
-        plt.plot(df_new.time, df_new[name], '-', lw=1)
-        plt.xlabel("Time [s]")
-        plt.ylabel("%s" % name)
-        plt.tight_layout()
-        if savefig:
-            out_file = clean_file_name(directory + '/single_value_%s' % name)
-            plt.savefig(out_file)
-        if not show:
-            plt.close()
+            plt.plot(df_new.time, df_new[name], '-', lw=1)
+            plt.xlabel("Time [s]")
+            plt.ylabel("%s" % name)
+            plt.tight_layout()
+            if savefig:
+                out_file = clean_file_name(directory + '/single_value_%s' % name)
+                plt.savefig(out_file)
+            if not show:
+                plt.close()
 
     if show:
         plt.show()
