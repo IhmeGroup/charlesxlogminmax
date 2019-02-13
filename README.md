@@ -4,18 +4,47 @@ This project is a simple tool to extract and plot data outputed in the log of [C
 
 ## Install
 
-sdkfdb
-saffdnbklfg
-fsdfb
+To install the tool you need to install the python package in your current python environment by running the command:
+
+```
+pip install git+https://github.com/qdouasbin/charlesxlogminmax.git
+```
 
 ## How to use it
 
-sdkfdb
-saffdnbklfg
-fsdfb
+Once the module is installed you can create small scripts to install the data.
 
-## ToDo
+### Extract data from log
 
-gghjj
-sdgfg
-sdggf
+If you want to extract data from charlesx log as a `.csv` file you can use the following script:
+
+```python
+import charlesxlogminmax.extract_data as ext_dat
+
+log_file = 'path-to-my-charlesx-log.out'
+out_file = 'my-charlesx-data.csv'
+ext_dat.extract_log_data(log_file, out_file)
+```
+
+### Plotting
+
+If you want to plot the data you can do it from the `.csv` file that you have created:
+
+```python
+import charlesxlogminmax.plot_min_max as plt_minmax
+
+plt_minmax.plot_log_data(out_file)
+```
+
+Alternatively, you can directly give the CharlesX log as an input:
+
+```python
+import charlesxlogminmax.plot_min_max as plt_minmax
+
+plt_minmax.plot_log_data(log_file)
+```
+
+The plotting feature also has a few options.
+todo --> describe options here.
+
+
