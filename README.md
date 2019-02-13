@@ -54,9 +54,9 @@ todo --> describe options here.
 Here are the different options available:
 
  - The only mandatory argument is the `.csv` or log file. If only this argument is given, the generted plots will be as the follwing:
-  - for the range values (min and max): <img src="./docs/examples/range_P.png" height="500" />
-  - for the single valued: <img src="./docs/examples/single_value_dt.png" height="500" />
- - if the optional argument `fill=True` is given, the following range plots will be generated: <img src="./docs/examples/range_P_fill.png" height="500" />
+  - for the range values (min and max): <img src="./docs/examples/range_P.png" height="400" align="middle" />
+  - for the single valued: <img src="./docs/examples/single_value_dt.png" height="400" align="middle" />
+ - if the optional argument `fill=True` is given, the following range plots will be generated: <img src="./docs/examples/range_P_fill.png" height="400" align="middle" />
  - if the optional argument `show=True` is given, the figures generated will be displayed on your screen
  -if the optional argument `ext=pdf` is given, the figures will be saved as pdf. The default value is `ext.png`.
 
