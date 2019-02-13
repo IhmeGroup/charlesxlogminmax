@@ -89,9 +89,9 @@ def plot_log_data(input_file, fill=False, ext='png', show=False):
 
         if fill:
             plt.figure()
-            plt.plot(df_new.time, df_new[min_nm], 'k-', lw=0.5)
-            plt.plot(df_new.time, df_new[max_nm], 'k-', lw=0.5)
-            plt.fill_between(df_new.time, df_new[min_nm], y2=df_new[max_nm], alpha=0.15)
+            plt.plot(df_new.time, df_new[min_nm], 'k-', lw=0.2)
+            plt.plot(df_new.time, df_new[max_nm], 'k-', lw=0.2)
+            plt.fill_between(df_new.time, df_new[min_nm], y2=df_new[max_nm], alpha=0.1)
             plt.xlabel("Time [s]")
             plt.ylabel("%s" % data)
             plt.tight_layout()
