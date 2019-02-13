@@ -128,8 +128,8 @@ def plot_log_data(input_file, fill=False, ext='png', show=False, savefig=False):
         plt.xlabel("Time [s]")
         plt.ylabel("%s" % name)
         plt.tight_layout()
-        out_file = clean_file_name(directory + '/single_value_%s' % name)
         if savefig:
+            out_file = clean_file_name(directory + '/single_value_%s' % name)
             plt.savefig(out_file)
         if not show:
             plt.close()
