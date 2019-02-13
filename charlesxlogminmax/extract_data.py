@@ -88,6 +88,22 @@ def extract_log_data(input_log, output_csv):
     # Get data as pandas data frame
     df = pd.DataFrame.from_dict(temp_data)
 
+    for name in df.columns:
+        if '_min' in name or '_max' in name:
+            df = df.drop(columns=[name])
+        if 'idx' in name:
+            df = df.drop(columns=[name])
+        if 'Unnamed' in name:
+            df = df.drop(columns=[name])
+
+    print("The variables found in the log are:")
+    for name in df.columns:
+        print("\t%s" % name)
+
+    print("Statistics:")
+    print(df.describe())
+
+
     # Output data as csv file
     if not output_csv.endswith('.csv'):
         df.to_csv(output_csv + '.csv')
