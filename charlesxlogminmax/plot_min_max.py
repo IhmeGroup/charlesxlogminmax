@@ -1,15 +1,17 @@
 """
 This file is made to plot log info from log or csv file
 """
-from __future__ import print_function
-from __future__ import division
 from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
 from __future__ import unicode_literals
 
 import os
-import numpy as np
+
 import matplotlib.pyplot as plt
+import numpy as np
 import pandas as pd
+
 import charlesxlogminmax
 import charlesxlogminmax.extract_data as ext_dat
 
@@ -41,7 +43,7 @@ def clean_file_name(file_name):
     return file_name
 
 
-def plot_log_data(input_file, fill=False, ext='png', show=False):
+def plot_log_data(input_file, fill=False, ext='png', show=False, savefig=False):
     """
     Plot the lof data either from csv or CharlesX.log
     :param input_file: csv or charles x log file
@@ -49,6 +51,12 @@ def plot_log_data(input_file, fill=False, ext='png', show=False):
     :param ext: extension of the outfile (pdf, png, ...)
     :param show: True if you want to visualize the plots on the screen
     """
+
+    # Check that we will do something
+    if not show and not savefig:
+        raise IOError(
+            "You need to select either the 'show' or 'savefig' option to be True in function 'plot_log_data'!")
+
     # Use homemade matplotlib style
     try:
         plt.style.use(charlesxlogminmax.__path__[0] + '/../data/style_quentin_douasbin.mplstyle')
@@ -58,9 +66,10 @@ def plot_log_data(input_file, fill=False, ext='png', show=False):
     # plt.style.use('ggplot')
     plt.rcParams["savefig.format"] = ext
 
-    directory = './LogFigures'
-    if not os.path.exists(directory):
-        os.makedirs(directory)
+    if savefig:
+        directory = './LogFigures'
+        if not os.path.exists(directory):
+            os.makedirs(directory)
 
     try:
         df_new = pd.read_csv(input_file)
@@ -87,7 +96,8 @@ def plot_log_data(input_file, fill=False, ext='png', show=False):
         plt.ylabel("%s" % data)
         plt.legend(loc='best')
         plt.tight_layout()
-        plt.savefig(directory + '/range_%s' % data)
+        if savefig:
+            plt.savefig(directory + '/range_%s' % data)
         if not show:
             plt.close()
 
@@ -99,7 +109,8 @@ def plot_log_data(input_file, fill=False, ext='png', show=False):
             plt.xlabel("Time [s]")
             plt.ylabel("%s" % data)
             plt.tight_layout()
-            plt.savefig(directory + '/range_%s_fill' % data)
+            if savefig:
+                plt.savefig(directory + '/range_%s_fill' % data)
             if not show:
                 plt.close()
 
@@ -118,7 +129,8 @@ def plot_log_data(input_file, fill=False, ext='png', show=False):
         plt.ylabel("%s" % name)
         plt.tight_layout()
         out_file = clean_file_name(directory + '/single_value_%s' % name)
-        plt.savefig(out_file)
+        if savefig:
+            plt.savefig(out_file)
         if not show:
             plt.close()
 

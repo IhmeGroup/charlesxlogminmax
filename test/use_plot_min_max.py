@@ -12,7 +12,7 @@ if __name__ == "__main__":
     out_file = 'test_extract_out.csv'
 
     extract_log_data(log_file, out_file)
-    plot_log_data(out_file)
+    plot_log_data(out_file, savefig=True)
 
     # Test with log input
-    plot_log_data(log_file, show=False)
+    plot_log_data(log_file, savefig=True)
