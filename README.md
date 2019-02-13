@@ -54,7 +54,7 @@ todo --> describe options here.
 Here are the different options available:
 
  - The only mandatory argument is the `.csv` or log file. If only this argument is given, the generted plots will be as the follwing:
-  - for the range values (min and max): ![plot](./docs/examples/range_P.png)
+  - for the range values (min and max): ![plot](./docs/examples/range_P.png) <img src="./docs/examples/range_P.png" height="200" />
   - for the single valued: ![plot](./docs/examples/single_value_dt.png)
  - if the optional argument `fill=True` is given, the following range plots will be generated:  ![plot](./docs/examples/range_P_fill.png)
  - if the optional argument `show=True` is given, the figures generated will be displayed on your screen
