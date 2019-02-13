@@ -10,6 +10,8 @@ To install the tool you need to install the python package in your current pytho
 pip install git+https://github.com/qdouasbin/charlesxlogminmax.git
 ```
 
+[Go here to know how to setup an python environment with Anaconda](https://github.com/IhmeGroup/CharlesX/wiki/Installation-Libraries#Using_a_Python_version_controller__Anaconda) or [here](https://docs.anaconda.com/anaconda/install/) if you don't have access to the CharlesX repository yet.
+
 ## How to use it
 
 Once the module is installed you can create small scripts to install the data.
@@ -47,4 +49,14 @@ plt_minmax.plot_log_data(log_file)
 The plotting feature also has a few options.
 todo --> describe options here.
 
+#### Plotting options
+
+Here are the different options available:
+
+ - The only mandatory argument is the `.csv` or log file. If only this argument is given, the generted plots will be as the follwing:
+  - for the range values (min and max): ![plot](./docs/examples/range_P.png)
+  - for the single valued: ![plot](./docs/examples/single_value_dt.png)
+ - if the optional argument `fill=True` is given, the following range plots will be generated:  ![plot](./docs/examples/range_P_fill.png)
+ - if the optional argument `show=True` is given, the figures generated will be displayed on your screen
+ -if the optional argument `ext=pdf` is given, the figures will be saved as pdf. The default value is `ext.png`.
 
