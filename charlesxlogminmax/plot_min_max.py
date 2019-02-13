@@ -50,7 +50,11 @@ def plot_log_data(input_file, fill=False, ext='png', show=False):
     :param show: True if you want to visualize the plots on the screen
     """
     # Use homemade matplotlib style
-    plt.style.use(charlesxlogminmax.__path__[0] + '/../data/style_quentin_douasbin.mplstyle')
+    try:
+        plt.style.use(charlesxlogminmax.__path__[0] + '/../data/style_quentin_douasbin.mplstyle')
+    except IOError:
+        plt.style.use('ggplot')
+
     # plt.style.use('ggplot')
     plt.rcParams["savefig.format"] = ext
 
