@@ -86,9 +86,16 @@ def extract_log_data(input_log, output_csv):
                             temp_data['%s_max' % name].append(data_max)
 
     # Get data as pandas data frame
+    n_data = []
+    for key in temp_data.keys():
+        n_data.append(len(temp_data[key]))
 
-    df = pd.DataFrame(dict([(key, pd.Series(val)) for key, val in temp_data.iteritems()]))
-    #df = pd.DataFrame.from_dict(temp_data)
+    min_length = min(n_data)
+    for key in match_temp.keys():
+        temp_data[key] = temp_data[key][0:min_length]
+
+    #df = pd.DataFrame(dict([(key, pd.Series(val)) for key, val in temp_data.iteritems()]))
+    df = pd.DataFrame.from_dict(temp_data)
 
     for name in df.columns:
         if 'idx' in name:
