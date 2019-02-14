@@ -9,9 +9,9 @@ It reads the log file line by line:
     - match and vector scalar range data
     - match and efficiency data
 """
-from __future__ import print_function
-from __future__ import division
 from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
 from __future__ import unicode_literals
 
 import pandas as pd
@@ -86,16 +86,12 @@ def extract_log_data(input_log, output_csv):
                             temp_data['%s_max' % name].append(data_max)
 
     # Get data as pandas data frame
-   #n_data = []
-   #for key in temp_data.keys():
-   #    n_data.append(len(temp_data[key]))
-
-   #min_length = min(n_data)
-   #for key in match_temp.keys():
-   #    temp_data[key] = temp_data[key][0:min_length]
-
-    df = pd.DataFrame(dict([(key, pd.Series(val)) for key, val in temp_data.iteritems()]))
-    #df = pd.DataFrame.from_dict(temp_data)
+    # Python 2
+    try:
+        df = pd.DataFrame(dict([(key, pd.Series(val)) for key, val in temp_data.iteritems()]))
+    # Python 3
+    except AttributeError:
+        df = pd.DataFrame(dict([(key, pd.Series(val)) for key, val in temp_data.items()]))
 
     for name in df.columns:
         if 'idx' in name:
