@@ -102,7 +102,7 @@ def get_temporal_info(line):
         time = float(match_obj.group(2))
         dt = float(match_obj.group(3)) * 2
     else:
-        match_obj = re.match(r'.*step:(.*).*time:\s(.*)\sdt:\s(.*).*', line)
+        match_obj = re.match(r'.*step:(.*).*time:\s(.*)\sdt:\s(.*)', line)
         if match_obj:
             iter = int(match_obj.group(1))
             time = float(match_obj.group(2))
