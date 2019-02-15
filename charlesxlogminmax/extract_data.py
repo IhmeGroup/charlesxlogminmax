@@ -99,7 +99,7 @@ def extract_log_data(input_log, output_csv):
         if 'Unnamed' in name:
             df = df.drop(columns=[name])
 
-    print('The variables found in the log "%s" are:' % input_log)
+    print('\nThe variables found in the log "%s" are:' % input_log)
     for name in df.columns:
         print("\t%s" % name)
 

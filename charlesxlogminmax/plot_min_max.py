@@ -63,8 +63,8 @@ def plot_log_data(input_file, fill=False, ext='png', show=False, savefig=False):
     except IOError:
         plt.style.use('ggplot')
 
-    # plt.style.use('ggplot')
     plt.rcParams["savefig.format"] = ext
+    plt.rcParams["figure.figsize"] = 5, 4
 
     if savefig:
         directory = './LogFigures'
