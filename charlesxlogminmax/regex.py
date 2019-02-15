@@ -3,12 +3,13 @@ This file contains all the functions needed to filter the data.
  - filter_non_data gets rid of non-data-containing lines
  - the get_* functions use regular expressions to extract the data
 """
-from __future__ import print_function
-from __future__ import division
 from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
 from __future__ import unicode_literals
 
 import re
+
 import numpy as np
 
 
@@ -100,6 +101,12 @@ def get_temporal_info(line):
         iter = int(match_obj.group(1))
         time = float(match_obj.group(2))
         dt = float(match_obj.group(3)) * 2
+    else:
+        match_obj = re.match(r'.*step:(.*).*time:\s(.*)\sdt:\s(.*).*', line)
+        if match_obj:
+            iter = int(match_obj.group(1))
+            time = float(match_obj.group(2))
+            dt = float(match_obj.group(3))
 
     return match_obj, iter, time, dt
 
