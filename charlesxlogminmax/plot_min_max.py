@@ -59,7 +59,7 @@ def plot_log_data(input_file, fill=False, ext='png', show=False, savefig=False):
 
     # Use homemade matplotlib style
     try:
-        plt.style.use(charlesxlogminmax.__path__[0] + '/../data/style_quentin_douasbin.mplstyle')
+        plt.style.use('~/Python/matplotlib_styles/Science_fine.mplstyle')
     except IOError:
         plt.style.use('ggplot')
 
