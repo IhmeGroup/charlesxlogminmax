@@ -62,9 +62,9 @@ def plot_log_data(input_file, fill=False, ext='png', show=False, savefig=False):
         plt.style.use('~/Python/matplotlib_styles/Science_fine.mplstyle')
     except IOError:
         plt.style.use('ggplot')
+        plt.rcParams["figure.figsize"] = 8, 6
 
     plt.rcParams["savefig.format"] = ext
-    plt.rcParams["figure.figsize"] = 8, 6
 
     if savefig:
         directory = './LogFigures'
