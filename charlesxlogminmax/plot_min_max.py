@@ -59,7 +59,7 @@ def plot_log_data(input_file, fill=False, ext='png', show=False, savefig=False):
 
     # Use homemade matplotlib style
     try:
-        plt.style.use('~/Python/matplotlib_styles/Science_fine.mplstyle')
+        plt.style.use('~/Python/matplotlibstyles/Science_fine.mplstyle')
     except IOError:
         plt.style.use('ggplot')
         plt.rcParams["figure.figsize"] = 8, 6
