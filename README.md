@@ -67,3 +67,26 @@ Here are the different options available:
  - if the optional argument `fill=True` is given, the following range plots will be generated: <br/> <img src="./docs/examples/range_P_fill.png" height="400" align="middle" />
  - if the optional argument `show=True` is given, the figures generated will be displayed on your screen
 
+## Example
+
+Here is an example of a python script calling the packages:
+
+```python
+import glob
+import charlesxlogminmax.plot_min_max as plt_minmax
+
+# Boolean options (True/ False or 1/0) 
+SHOW = 1
+SAVEFIG = 1
+
+# Use glob to find the file corresponding to the pattern "log_.*" 
+# The pattern should be changed by the user to find his log file.
+log_file = glob.glob('log_*')[-1]
+
+# Plotting
+print("\nPlotting CharlesX log file %s" % log_file)
+plt_minmax.plot_log_data(log_file, show=SHOW, savefig=SAVEFIG, ext='png')
+
+print("Plotting done.")
+print("Exiting.")
+```
