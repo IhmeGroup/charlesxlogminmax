@@ -72,6 +72,16 @@ def extract_log_data(input_log, output_csv):
                         temp_data['%s' % name] = []
                         temp_data['%s' % name].append(eff)
 
+                match_recon, name, recon = regex.get_reconstruction_info(my_line)
+                if match_recon:
+                    try:
+                        for iN in range(len(recon)):
+                            temp_data['%s' % name[iN]].append(recon[iN])
+                    except KeyError:
+                        for iN in range(len(recon)):
+                            temp_data['%s' % name[iN]] = []
+                            temp_data['%s' % name[iN]].append(recon[iN])
+
                 # Get every printed 3D vectors (RHOU and U)
                 for data in regex.get_vector_range(my_line):
                     match_vector, name, data_min, data_max = data
