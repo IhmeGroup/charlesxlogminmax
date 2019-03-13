@@ -76,7 +76,18 @@ def get_vector_range(line):
         data_1 = tuple((match_obj, name_1, data[1], data[2]))
         data_2 = tuple((match_obj, name_2, data[3], data[4]))
         data_3 = tuple((match_obj, name_3, data[5], data[6]))
-
+    # for LSP
+    elif 'XP' in name:
+        name_1, name_2, name_3 = 'LSP:XP', 'LSP:YP', 'LSP:ZP'
+        data_1 = tuple((match_obj, name_1, data[1], data[2]))
+        data_2 = tuple((match_obj, name_2, data[3], data[4]))
+        data_3 = tuple((match_obj, name_3, data[5], data[6]))
+    elif 'UP' in name:
+        name_1, name_2, name_3 = 'LSP:UP', 'LSP:VP', 'LSP:WP'
+        data_1 = tuple((match_obj, name_1, data[1], data[2]))
+        data_2 = tuple((match_obj, name_2, data[3], data[4]))
+        data_3 = tuple((match_obj, name_3, data[5], data[6]))
+        
     if match_obj:
         out = data_1, data_2, data_3
     else:
