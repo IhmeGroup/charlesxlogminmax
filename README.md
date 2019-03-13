@@ -72,6 +72,8 @@ Here are the different options available:
 Here is an example of a python script calling the packages:
 
 ```python
+#!/path_to_my_python_interpreter
+
 import glob
 import charlesxlogminmax.plot_min_max as plt_minmax
 
