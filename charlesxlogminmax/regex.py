@@ -85,26 +85,39 @@ def get_vector_range(line):
 
     return out
 
+
 def get_reconstruction_info(line):
     """
     Scraps data for a shock-capturing recomnstruction kind of data output
     :param line: line of a file (str)
     :return: tuple of scalar tuples --> regex obj (can be treated as bool), name, recon 
     """
-    name = ''
     recon = [0, 0, 0]
-    #match_obj = re.match(r'\s>\s(.*)\s(.*)\s\%\s\\(\s(.*)\s:\s(.*)\%\s(.*)\s:\s(.*)\%\s(.*)\s:\s(.*)\%*', line)
     match_obj = re.match(r'.*WENO\s:\s(.*)\%\sENO\s:\s(.*)\%\sFIRST_ORDER\s:\s(.*)\%.*', line)
     if match_obj:
         if 'shock-capturing' in line:
-            #name = [str(match_obj.group(3)),str(match_obj.group(5)),str(match_obj.group(7))]
-            name = ["WENO","ENO","FIRST_ORDER"]
-            #recon =  [float(match_obj.group(4)),float(match_obj.group(6)),float(match_obj.group(8))]
-            recon =  [float(match_obj.group(1)),float(match_obj.group(2)),float(match_obj.group(3))]
-        else:
-            match_obj = False
+            # name = [str(match_obj.group(3)),str(match_obj.group(5)),str(match_obj.group(7))]
+            name = ["WENO", "ENO", "FIRST_ORDER"]
+            # recon =  [float(match_obj.group(4)),float(match_obj.group(6)),float(match_obj.group(8))]
+            recon = [float(match_obj.group(1)), float(match_obj.group(2)), float(match_obj.group(3))]
 
-    return match_obj, name, recon 
+    return match_obj, name, recon
+
+
+def get_doubleflux_info(line):
+    """
+    Scraps data for the doubleflux percentage
+    :param line: line of log file (str)
+    :return: tuple --> regex obj (treated as bool), name, value
+    """
+    name = ''
+    percent_df = 0.
+    match_obj = re.match(r'double-flux.*:\s(.*)\s\%', line)
+    if match_obj:
+        name = 'DoubleFlux'
+        percent_df = float(match_obj.group(2))
+
+    return match_obj, name, percent_df
 
 
 def get_temporal_info(line):
