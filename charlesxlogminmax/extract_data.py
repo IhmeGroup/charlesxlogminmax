@@ -72,8 +72,8 @@ def extract_log_data(input_log, output_csv):
                         temp_data['%s' % name] = []
                         temp_data['%s' % name].append(eff)
 
-                match_eff, name, percent_df = regex.get_doubleflux_info(my_line)
-                if match_eff:
+                match_df, name, percent_df = regex.get_doubleflux_info(my_line)
+                if match_df:
                     try:
                         temp_data['%s' % name].append(percent_df)
                     except KeyError:
