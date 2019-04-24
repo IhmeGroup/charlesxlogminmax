@@ -97,7 +97,6 @@ def get_reconstruction_info(line):
     match_obj = re.match(r'.*WENO\s:\s(.*)\%\sENO\s:\s(.*)\%\sFIRST_ORDER\s:\s(.*)\%.*', line)
     if match_obj:
         if 'shock-capturing' in line:
-            print("recon found")
             # name = [str(match_obj.group(3)),str(match_obj.group(5)),str(match_obj.group(7))]
             name = ["WENO", "ENO", "FIRST_ORDER"]
             # recon =  [float(match_obj.group(4)),float(match_obj.group(6)),float(match_obj.group(8))]
