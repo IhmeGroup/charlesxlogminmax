@@ -134,6 +134,27 @@ def get_doubleflux_info(line):
         match_obj = False
     return match_obj, name, percent_df
 
+def get_subphysics_info(line):
+    """
+    Scraps data for the total sub-physics percentage
+    :param line: line of a file (str)
+    :return: tuple of scalar tuples --> regex obj (can be treated as bool), name, recon 
+    """
+    name = ''
+    subphysics = [0, 0]
+    match_obj = re.match(r'.*FPVA\s:\s(.*)\%\sMULTI_SPECIES\s:\s(.*)\%.*', line)
+    #match_obj = re.match(r'.*total\ssub-physics*FPVA\s:\s(.*)\%\sMULTI_SPECIES\s:\s(.*)\%.*', line)
+    #match_obj = re.match(r'.*total\ssub-physics\spercentage\sover\s(.*)\svolumes:\s(FPVA\s:\s(.*)\%\sMULTI_SPECIES\s:\s(.*)\%.*', line)
+    if match_obj:
+        if 'total sub-physics' in line:
+            #name = [str(match_obj.group(3)),str(match_obj.group(5)),str(match_obj.group(7))]
+            name = ["FPVA","MULTI_SPECIES"]
+            subphysics =  [float(match_obj.group(1)),float(match_obj.group(2))]
+        else:
+            match_obj = False
+
+    return match_obj, name, subphysics
+
 
 def get_temporal_info(line):
     """
