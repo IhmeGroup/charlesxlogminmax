@@ -82,6 +82,16 @@ def extract_log_data(input_log, output_csv):
                             temp_data['%s' % name[iN]] = []
                             temp_data['%s' % name[iN]].append(recon[iN])
 
+                match_subphysics, name, subphysics = regex.get_subphysics_info(my_line)
+                if match_subphysics:
+                    try:
+                        for iN in range(len(subphysics)):
+                            temp_data['%s' % name[iN]].append(subphysics[iN])
+                    except KeyError:
+                        for iN in range(len(subphysics)):
+                            temp_data['%s' % name[iN]] = []
+                            temp_data['%s' % name[iN]].append(subphysics[iN])
+
                 # Get every printed 3D vectors (RHOU and U)
                 for data in regex.get_vector_range(my_line):
                     match_vector, name, data_min, data_max = data
