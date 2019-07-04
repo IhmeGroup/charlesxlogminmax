@@ -59,7 +59,8 @@ def plot_log_data(input_file, fill=False, ext='png', show=False, savefig=False):
 
     # Use homemade matplotlib style
     try:
-        plt.style.use('~/Python/matplotlibstyles/Science_fine.mplstyle')
+        plt.style.use('~/.style')
+        plt.rcParams["savefig.dpi"] = 200
     except IOError:
         plt.style.use('ggplot')
         plt.rcParams["figure.figsize"] = 8, 6
@@ -74,9 +75,10 @@ def plot_log_data(input_file, fill=False, ext='png', show=False, savefig=False):
     try:
         df_new = pd.read_csv(input_file)
     except pd.errors.ParserError:
-        ext_dat.extract_log_data(input_file, 'dummy.csv')
-        df_new = pd.read_csv('dummy.csv')
-        os.remove('./dummy.csv')
+        csv_name = input_file.replace(".out", ".csv")
+        ext_dat.extract_log_data(input_file, csv_name)
+        df_new = pd.read_csv(csv_name)
+        #os.remove('./dummy.csv')
 
     # create variable name list
     data_name = []
@@ -85,7 +87,9 @@ def plot_log_data(input_file, fill=False, ext='png', show=False, savefig=False):
             if '_TF_' not in col:
                 data_name.append(col.replace('_min', ''))
 
+    print('\nStarting plots:')
     for data in data_name:
+        print("\tPlotting %s" % data)
         plt.figure()
         max_nm = data + '_max'
         min_nm = data + '_min'
