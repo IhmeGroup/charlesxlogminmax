@@ -7,10 +7,12 @@ from __future__ import print_function
 from __future__ import unicode_literals
 
 import os
+import multiprocessing
 
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+import tqdm
 
 import charlesxlogminmax
 import charlesxlogminmax.extract_data as ext_dat
@@ -42,6 +44,36 @@ def clean_file_name(file_name):
 
     return file_name
 
+def plot_range(args):
+    data, df_new, directory, fill, savefig, show = args
+    print("\tPlotting %s" % data)
+    plt.figure()
+    max_nm = data + '_max'
+    min_nm = data + '_min'
+
+    plt.plot(df_new.time, df_new[min_nm], '-', lw=1, markevery=0.05, label='Min')
+    plt.plot(df_new.time, df_new[max_nm], '-', lw=1, markevery=0.05, label='Max')
+    plt.xlabel("Time [s]")
+    plt.ylabel("%s" % data)
+    plt.legend(loc='best')
+    plt.tight_layout()
+    if savefig:
+        plt.savefig(directory + '/range_%s' % data)
+    if not show:
+        plt.close()
+
+    if fill:
+        plt.figure()
+        plt.plot(df_new.time, df_new[min_nm], 'k-', lw=0.2)
+        plt.plot(df_new.time, df_new[max_nm], 'k-', lw=0.2)
+        plt.fill_between(df_new.time, df_new[min_nm], y2=df_new[max_nm], alpha=0.1)
+        plt.xlabel("Time [s]")
+        plt.ylabel("%s" % data)
+        plt.tight_layout()
+        if savefig:
+            plt.savefig(directory + '/range_%s_fill' % data)
+        if not show:
+            plt.close()
 
 def plot_log_data(input_file, fill=False, ext='png', show=False, savefig=False):
     """
@@ -87,36 +119,17 @@ def plot_log_data(input_file, fill=False, ext='png', show=False, savefig=False):
             if '_TF_' not in col:
                 data_name.append(col.replace('_min', ''))
 
-    print('\nStarting plots:')
+    print('\nStarting plots range:')
+    pool = multiprocessing.Pool()
+    list_args = []
     for data in data_name:
-        print("\tPlotting %s" % data)
-        plt.figure()
-        max_nm = data + '_max'
-        min_nm = data + '_min'
+        list_args.append((data, df_new, directory, fill, savefig, show))
+    with tqdm.tqdm(total=len(list_args)) as pbar:
+        for _ in pool.imap_unordered(plot_range, list_args):
+            pbar.update()
 
-        plt.plot(df_new.time, df_new[min_nm], '-', lw=1, markevery=0.05, label='Min')
-        plt.plot(df_new.time, df_new[max_nm], '-', lw=1, markevery=0.05, label='Max')
-        plt.xlabel("Time [s]")
-        plt.ylabel("%s" % data)
-        plt.legend(loc='best')
-        plt.tight_layout()
-        if savefig:
-            plt.savefig(directory + '/range_%s' % data)
-        if not show:
-            plt.close()
-
-        if fill:
-            plt.figure()
-            plt.plot(df_new.time, df_new[min_nm], 'k-', lw=0.2)
-            plt.plot(df_new.time, df_new[max_nm], 'k-', lw=0.2)
-            plt.fill_between(df_new.time, df_new[min_nm], y2=df_new[max_nm], alpha=0.1)
-            plt.xlabel("Time [s]")
-            plt.ylabel("%s" % data)
-            plt.tight_layout()
-            if savefig:
-                plt.savefig(directory + '/range_%s_fill' % data)
-            if not show:
-                plt.close()
+        #for data in data_name:
+        #    plot_range(data, df_new, directory, fill, savefig, show)
 
     for name in df_new.columns:
         if '_min' in name or '_max' in name:
