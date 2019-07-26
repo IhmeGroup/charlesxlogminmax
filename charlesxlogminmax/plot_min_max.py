@@ -46,7 +46,7 @@ def clean_file_name(file_name):
 
 def plot_range(args):
     data, df_new, directory, fill, savefig, show = args
-    print("\tPlotting %s" % data)
+    # print("\tPlotting %s" % data)
     plt.figure()
     max_nm = data + '_max'
     min_nm = data + '_min'

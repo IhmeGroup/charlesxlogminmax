@@ -64,6 +64,14 @@ def extract_log_data(input_log, output_csv):
                         temp_data['%s_min' % name].append(data_min)
                         temp_data['%s_max' % name].append(data_max)
 
+                match_rewind, name, rewind = regex.get_rewind(my_line)
+                if match_rewind:
+                    try:
+                        temp_data['%s' % name].append(rewind)
+                    except KeyError:
+                        temp_data['%s' % name] = []
+                        temp_data['%s' % name].append(rewind)
+
                 match_eff, name, eff = regex.get_efficiency(my_line)
                 if match_eff:
                     try:

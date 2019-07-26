@@ -181,6 +181,28 @@ def get_temporal_info(line):
     return match_obj, iter, time, dt
 
 
+def get_rewind(line):
+    """
+    Scraps data for rewind output
+    :param line: line of a file (str)
+    :return: tuple --> regex obj (can be treated as bool), name, rewind
+    """
+    # line:
+    #"  > rewinding applied to 2181 of  2578820 cells: 0.0845736 %"
+    name = ''
+    rewind = 0.
+    match_obj = re.match(r'\s>\s(.*):\s(.*)\s\%', line)
+
+    if match_obj:
+        if 'rewinding' in line:
+            name = str("Rewind")
+            rewind = float(match_obj.group(2))
+        else:
+            match_obj = False
+
+    return match_obj, name, rewind
+
+
 def get_efficiency(line):
     """
     Scraps data for efficiency output
