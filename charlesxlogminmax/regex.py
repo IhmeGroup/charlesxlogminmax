@@ -142,7 +142,8 @@ def get_subphysics_info(line):
     """
     name = ''
     subphysics = [0, 0]
-    match_obj = re.match(r'.*FPVA\s:\s(.*)\%\sMULTI_SPECIES\s:\s(.*)\%.*', line)
+    match_obj = re.match(r'.*FPVA\s:\s(.*)\%\sMULTI_SPECIES\s:\s(.*)\%\swith\sINERT_MIXING\s:\s(.*)\%.*', line)
+    #match_obj = re.match(r'.*FPVA\s:\s(.*)\%\sMULTI_SPECIES\s:\s(.*)\%.*', line)
     #match_obj = re.match(r'.*total\ssub-physics*FPVA\s:\s(.*)\%\sMULTI_SPECIES\s:\s(.*)\%.*', line)
     #match_obj = re.match(r'.*total\ssub-physics\spercentage\sover\s(.*)\svolumes:\s(FPVA\s:\s(.*)\%\sMULTI_SPECIES\s:\s(.*)\%.*', line)
     if match_obj:
@@ -164,21 +165,41 @@ def get_temporal_info(line):
     """
     iter = 0
     time = 0
+    time_elapsed = 0
     dt = 0
 
-    match_obj = re.match(r'.*step:(.*).*time:\s(.*)\sdt:\s(.*).*\*\s2', line)
+    catch_float = r'([+-]?\d+(?:\.\d+(?:[eE][+-]?\d+)?)?)'
+
+    match_obj = re.match(r'.*step:\s(\d+)' +
+                         r'\s+time:\s' + catch_float +
+                         r'\sdt:\s(.*).*\*\s2', line)
     if match_obj:
         iter = int(match_obj.group(1))
         time = float(match_obj.group(2))
         dt = float(match_obj.group(3)) * 2
-    else:
-        match_obj = re.match(r'.*step:(.*).*time:\s(.*)\sdt:\s(.*)', line)
-        if match_obj:
-            iter = int(match_obj.group(1))
-            time = float(match_obj.group(2))
-            dt = float(match_obj.group(3))
+        return match_obj, iter, time, time_elapsed, dt
 
-    return match_obj, iter, time, dt
+    match_obj = re.match(r'.*step:\s(\d+)' +
+                         r'\s+time:\s' + catch_float +
+                         r'\s+dt:\s' + catch_float, line)
+    if match_obj:
+        iter = int(match_obj.group(1))
+        time = float(match_obj.group(2))
+        dt = float(match_obj.group(3))
+        return match_obj, iter, time, time_elapsed, dt
+
+    match_obj = re.match(r'.*step:\s(\d+)' +
+                         r'\s+time:\s' + catch_float +
+                         r'\s+time_elapsed:\s' + catch_float +
+                         r'\s+dt:\s' + catch_float, line)
+    if match_obj:
+        iter = int(match_obj.group(1))
+        time = float(match_obj.group(2))
+        time_elapsed = float(match_obj.group(3))
+        dt = float(match_obj.group(4))
+        return match_obj, iter, time, time_elapsed, dt
+
+    return match_obj, iter, time, time_elapsed, dt
 
 
 def get_rewind(line):

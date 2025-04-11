@@ -19,7 +19,7 @@ import pandas as pd
 from . import regex
 
 
-def extract_log_data(input_log, output_csv):
+def extract_log_data(input_log, output_csv, verbose=True):
     """
     Extracts scalar data from charlesx log
     :param input_log:
@@ -32,23 +32,26 @@ def extract_log_data(input_log, output_csv):
     i = 0
     # Iterate over the line to scrap the data
     for my_line in lst:
-        # First get the iteration, time and time step
-        match_temp, iter, time, dt = regex.get_temporal_info(my_line)
+        # First get the iteration, time, time_elapsed (since start of run) and time step
+        match_temp, iter, time, time_elapsed, dt = regex.get_temporal_info(my_line)
         if match_temp:
             i += 1
             try:
                 temp_data['idx'].append(i)
                 temp_data['iteration'].append(iter)
                 temp_data['time'].append(time)
+                temp_data['time_elapsed'].append(time_elapsed)
                 temp_data['dt'].append(dt)
             except KeyError:
                 temp_data['idx'] = []
                 temp_data['iteration'] = []
                 temp_data['time'] = []
+                temp_data['time_elapsed'] = []
                 temp_data['dt'] = []
                 temp_data['idx'].append(i)
                 temp_data['iteration'].append(iter)
                 temp_data['time'].append(time)
+                temp_data['time_elapsed'].append(time_elapsed)
                 temp_data['dt'].append(dt)
         if i > 0:
             if regex.filter_non_data(my_line):
@@ -135,9 +138,10 @@ def extract_log_data(input_log, output_csv):
         if 'Unnamed' in name:
             df = df.drop(columns=[name])
 
-    print('\nThe variables found in the log "%s" are:' % input_log)
-    for name in df.columns:
-        print("\t%s" % name)
+    if verbose:
+        print('\nThe variables found in the log "%s" are:' % input_log)
+        for name in df.columns:
+            print("\t%s" % name)
 
     # Output data as csv file
     if not output_csv.endswith('.csv'):
